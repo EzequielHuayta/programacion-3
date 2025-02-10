@@ -3,6 +3,25 @@ package clase4;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+PSEUCODIGO
+ALGORITMO maxScoring(listaClientes, inicio, fin)
+    SI inicio == fin ENTONCES
+        RETURN listaClientes[inicio]
+
+    medio ← (inicio + fin) / 2
+
+    clienteIzq ← maxScoring(listaClientes, inicio, medio)
+    clienteDer ← maxScoring(listaClientes, medio + 1, fin)
+
+    SI clienteIzq.scoring >= clienteDer.scoring ENTONCES
+        RETURN clienteIzq
+    SINO
+        RETURN clienteDer
+
+
+ */
+
 class Cliente {
     public double getScoring() {
         return scoring;
