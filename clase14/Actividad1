@@ -1,0 +1,29 @@
+Explicación del Backtracking en este problema
+El algoritmo sigue una estrategia de prueba y error, colocando reinas fila por fila y verificando si la posición es segura antes de continuar con la siguiente fila. Si en algún momento no puede colocar una reina en una fila sin violar las reglas, retrocede a la fila anterior y prueba una nueva posición.
+
+Comportamiento cuando encuentra una solución
+Cuando el algoritmo logra colocar todas las N reinas en el tablero de forma válida, la función solve retorna true, deteniendo la recursión y permitiendo que el método printBoard muestre la solución.
+
+Comportamiento cuando no puede colocar más reinas
+Si en una fila no hay ninguna posición válida para colocar una reina, el algoritmo retrocede a la fila anterior (backtracking), eliminando la última reina colocada y probando una nueva posición en esa fila.
+
+Visualización del Backtracking en Python Tutor
+En Python Tutor, se puede ver cómo el programa explora diferentes configuraciones.
+Cuando encuentra una solución, la recursión finaliza y el tablero resultante se imprime.
+Si una configuración no funciona, el algoritmo borra la última reina colocada y prueba una nueva posición en la misma fila.
+
+Modificaciones para N = 8
+Para modificar el código y probar con N = 8, basta con cambiar:
+
+private static final int N = 8;
+Con este cambio:
+
+El tiempo de ejecución disminuirá considerablemente en comparación con N = 30, ya que el espacio de búsqueda se reduce drásticamente.
+Para N = 30, el problema se vuelve mucho más complejo y es posible que el algoritmo no termine en un tiempo razonable debido a la explosión combinatoria.
+
+
+Importancia del método isSafe
+isSafe es crucial porque:
+Permite colocar reinas solo en posiciones seguras.
+Reduce la cantidad de configuraciones inválidas que el algoritmo necesita explorar.
+Sin esta validación, el algoritmo intentaría soluciones inválidas, lo que haría que la ejecución sea mucho más ineficiente.
