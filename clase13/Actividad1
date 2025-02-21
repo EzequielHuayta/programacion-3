@@ -1,0 +1,54 @@
+Actividad 1 – Sistema de Detección de Ciberataques
+1. Ejemplos de Acciones Posibles del Atacante:
+Un atacante podría intentar las siguientes acciones maliciosas sobre la plataforma:
+
+Inyección SQL: Intentar acceder o modificar la base de datos mediante consultas SQL maliciosas.
+Fuerza bruta: Probar múltiples combinaciones de usuario y contraseña hasta encontrar una válida.
+Cross-Site Scripting (XSS): Inyectar código malicioso en los formularios de entrada para afectar a otros usuarios.
+Denegación de servicio (DoS/DDoS): Enviar múltiples solicitudes para saturar el servidor y hacer que la plataforma sea inaccesible.
+Escaneo de puertos: Identificar servicios abiertos en la plataforma para encontrar vulnerabilidades explotables.
+Robo de sesiones: Interceptar cookies de sesión para acceder como un usuario legítimo.
+2. Funciones del Sistema de Detección y Técnicas Utilizadas
+El sistema de detección debe cumplir las siguientes funciones:
+
+Monitoreo en tiempo real: Analizar el tráfico y las solicitudes a la plataforma.
+Registro y auditoría: Almacenar eventos sospechosos para su análisis posterior.
+Alertas y respuestas automáticas: Generar alertas y bloquear solicitudes sospechosas.
+Correlación de eventos: Relacionar actividades en diferentes partes del sistema para identificar patrones de ataque.
+Técnicas y herramientas utilizadas:
+
+Sistemas de Detección de Intrusos (IDS/IPS): Snort, Suricata, Zeek.
+Análisis de registros (Log Monitoring): ELK Stack (Elasticsearch, Logstash, Kibana), Splunk.
+Machine Learning y Análisis de Comportamiento: Modelos de detección de anomalías en tráfico web.
+Firewall de Aplicaciones Web (WAF): ModSecurity, AWS WAF.
+Honeypots: Servidores falsos diseñados para atraer atacantes y registrar sus acciones.
+3. Aplicación de la Poda Alfa-Beta
+La poda alfa-beta es un algoritmo de optimización utilizado en la búsqueda minimax. Se usa para reducir la cantidad de nodos evaluados en un árbol de decisión, evitando analizar opciones irrelevantes.
+
+En el contexto del sistema de detección, podría aplicarse para filtrar amenazas en base a un árbol de decisión donde cada nodo representa una acción posible del atacante y una contramedida del sistema.
+
+Ejemplo:
+
+Nodo raíz: Ataque detectado.
+Hijo 1: Análisis del tráfico sospechoso.
+Si el tráfico es legítimo, se descarta la acción.
+Si es anómalo, se evalúa una contramedida.
+Hijo 2: Bloqueo automático del atacante.
+Si una rama ya ofrece una solución óptima para mitigar el ataque, las demás opciones no se evalúan, reduciendo la carga computacional.
+
+
+4)
+                [Actividad Sospechosa]
+                      │
+         ┌────────────┴────────────┐
+     [Tráfico Normal]        [Tráfico Sospechoso]
+         │                              │
+     [Permitir]             ┌──────────┴──────────┐
+                        [Intento de ataque]   [Falsa Alarma]
+                           │                      │
+          ┌───────────┴───────────┐         [Permitir]
+  [Mitigar Ataque]      [Registrar Evento]
+          │
+  [Bloquear IP / Notificar]
+Este árbol representa un flujo básico en el que el sistema primero determina si una actividad es sospechosa. Si se detecta un ataque real, el sistema puede aplicar mitigaciones como bloquear la IP o generar alertas.
+
