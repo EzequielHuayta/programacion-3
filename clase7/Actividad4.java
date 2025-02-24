@@ -1,4 +1,6 @@
-public class actividad4 {
+package clase7;
+
+public class Actividad4 {
     public static void main(String[] args) {
         int presupuesto = 35;
         int[] costos = {12, 20, 15, 25};

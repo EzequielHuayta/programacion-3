@@ -3,7 +3,7 @@ package clase4;
 public class DosMayoresDivideYConquista {
 
     // Clase para almacenar los dos números mayores
-    static class Resultado {
+    private static class Resultado {
         int mayor;
         int segundoMayor;
 

@@ -22,18 +22,11 @@ public class MochilaFraccional {
 
         double maxValue = 0.0;
 
-        for (Item item : items) {
-            if (W == 0) break; // Si la mochila está llena, terminar
-
-            if (item.weight <= W) {
-                // Tomar el objeto completo
-                maxValue += item.value;
-                W -= item.weight;
-            } else {
-                // Tomar solo la fracción del objeto que cabe en la mochila
-                maxValue += item.value * ((double) W / item.weight);
-                W = 0;
-            }
+        Item item;
+        for (int i = 0; i < items.length && W > 0; i++) {
+            item = items[i];
+            maxValue += item.value * item.weight <= W ? item.value : ((double) W / item.weight) ;
+            W -= item.weight;
         }
 
         return maxValue;

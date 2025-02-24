@@ -1,72 +1,65 @@
 package clase4;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Arrays;
+import java.util.TreeMap;
 
 public class Actividad5 {
+
+    private static class Corredor {
+        String nombre;
+        double tiempo;
+        String categoria;
+
+        public Corredor(String nombre, double tiempo, String categoria) {
+            this.nombre = nombre;
+            this.tiempo = tiempo;
+            this.categoria = categoria;
+        }
+    }
+
     public static void main(String[] args) {
-        
-        ArrayList<Corredor> corredores = new ArrayList<>();
-        corredores.add(new Corredor("Junior", "Juan", 12.2));
-        corredores.add(new Corredor("Senior", "Pedro", 10.90));
-        corredores.add(new Corredor("Junior", "Juan1", 12.2));
-        corredores.add(new Corredor("Senior", "Pedro1", 10.90));
+        Corredor[] corredores = {
+                new Corredor("Nico", 33.01, "100m"),
+                new Corredor("Nico2", 34.31, "100m"),
+                new Corredor("Nico3", 34.12, "150m"),
+                new Corredor("Lucho", 35.89, "150m")
+        };
 
-        HashMap<String,ArrayList<Corredor>> corredorPorCategoria = new HashMap<>();
+        TreeMap<String, Corredor> ganadores = mejoresCorredores(corredores);
+
+        for (String key : ganadores.keySet()) {
+            System.out.println(String.format("El mejor corredor de la categoria %s fue %s", key, ganadores.get(key).nombre));
+        }
+
+    }
+
+    public static TreeMap<String, Corredor> mejoresCorredores(Corredor[] corredores) {
+        TreeMap<String, Corredor> corredorPorCategoria = new TreeMap<>();
         for (Corredor corredor : corredores) {
-            if(!corredorPorCategoria.containsKey(corredor.categoria)) {
-                ArrayList<Corredor> ncorredores  = new ArrayList<>();
-                corredorPorCategoria.put(corredor.categoria, ncorredores);
+            if (!corredorPorCategoria.containsKey(corredor.categoria)) {
+                corredorPorCategoria.put(corredor.categoria, null);
             }
-            corredorPorCategoria.get(corredor.categoria).add(corredor);
         }
 
-        for (ArrayList<Corredor> ncorredores : corredorPorCategoria.values()) {
-            System.out.println(buscarScoringMaximo(ncorredores));
+        for (String key : corredorPorCategoria.keySet()) {
+            Corredor[] corredoresCategoria = Arrays.stream(corredores)
+                    .filter(corredor -> corredor.categoria.equals(key))
+                    .toArray(Corredor[]::new);
+            corredorPorCategoria.put(key, mejorCorredor(corredoresCategoria, 0, corredoresCategoria.length - 1));
         }
 
+        return corredorPorCategoria;
     }
 
-    private static Corredor buscarScoringMaximo(List<Corredor> corredores) {
-        return buscarScoringMaximo(corredores, 0, corredores.size()-1);
-    }    
-    private static Corredor buscarScoringMaximo(List<Corredor> corredores, int inicio, int fin) {
-        if (inicio == fin) {
-            return corredores.get(inicio);
-        }
+    private static Corredor mejorCorredor(Corredor[] corredores, int inicio, int fin) {
+        if (inicio == fin) return corredores[inicio];
+        int medio = inicio + (fin - inicio) / 2;
 
-        int medio = (inicio + fin) / 2;
-        Corredor maxIzquierda = buscarScoringMaximo(corredores, inicio, medio);
-        Corredor maxDerecha = buscarScoringMaximo(corredores, medio + 1, fin);
- 
-        return maxIzquierda.tiempo > maxDerecha.tiempo ? maxIzquierda : maxDerecha;
- 
-        /*
-        if (maxIzquierda.scoring >= maxDerecha.scoring) {
-            return maxIzquierda;
-        } else {
-            return maxDerecha;
-        }
-        */    
+        Corredor corredorIzquierda = mejorCorredor(corredores, inicio, medio);
+        Corredor corredorDerecha = mejorCorredor(corredores, medio + 1, fin);
+        return corredorDerecha.tiempo < corredorIzquierda.tiempo
+                ? corredorDerecha
+                : corredorIzquierda;
     }
-
-
-
-}
-
-class Corredor {
-    String categoria;
-    String nombre;
-    double tiempo;
-    public Corredor(String categoria, String nombre, double tiempo) {
-        this.categoria = categoria;
-        this.nombre = nombre;
-        this.tiempo = tiempo;
-    }
-    @Override
-    public String toString() {
-        return "Corredor [categoria=" + categoria + ", nombre=" + nombre + ", tiempo=" + tiempo + "]";
-    }
-       
 }

@@ -18,6 +18,15 @@ public class BinarySearchTree {
         return searchBST(root.right, x);
     }
 
+    public int getHeigth(TreeNode root) {
+        return getHeigth(root, 0);
+    }
+
+    private int getHeigth(TreeNode root, int step) {
+        if (root == null || root.right == null && root.left == null) return step;
+        return Math.max(getHeigth(root.left, step + 1), getHeigth(root.right, step + 1));
+    }
+
     public static void main(String[] args) {
         BinarySearchTree tree = new BinarySearchTree();
 
@@ -30,7 +39,7 @@ public class BinarySearchTree {
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(25);
         root.right.right.right = new TreeNode(30);
-
+        System.out.println(tree.getHeigth(root));
 
     }
 }
